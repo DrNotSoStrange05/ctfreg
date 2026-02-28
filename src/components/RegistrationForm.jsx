@@ -196,7 +196,7 @@ export default function RegistrationForm({ onSuccess, isUnfolding }) {
             Join the <span className="text-gold">Arena</span>
           </h2>
         </div>
-
+    
         {/* Step indicator */}
         <div className="flex items-center gap-3 mb-10 px-2">
           {steps.map((s, i) => (
@@ -312,12 +312,12 @@ export default function RegistrationForm({ onSuccess, isUnfolding }) {
                     <Label>College Name *</Label>
                     <input id="college-name" className={ic('collegeName')} placeholder="NSS College of Engineering, Palakkad"
                       value={form.collegeName} onChange={upd('collegeName')} onFocus={onFieldFocus} onBlur={onFieldBlur} list="colleges" />
-                    <datalist id="colleges">
+                    {/* <datalist id="colleges">
                       <option value="NSS College of Engineering, Palakkad" />
                       <option value="Government Engineering College, Thrissur" />
                       <option value="College of Engineering, Trivandrum" />
                       <option value="NIT Calicut" />
-                    </datalist>
+                    </datalist> */}
                     <Err f="collegeName" />
                   </div>
 

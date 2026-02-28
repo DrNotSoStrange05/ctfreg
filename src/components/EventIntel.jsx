@@ -123,7 +123,8 @@ export default function EventIntel() {
             style={{
               fontSize: "clamp(3.5rem, 11vw, 7.5rem)",
               fontWeight: "900",
-              fontStyle: "italic",
+              fontStyle: "bold",
+              // fontFamily: "'VT323', 'Space Mono', monospace",
               color: CYAN,
               letterSpacing: "-0.02em",
               lineHeight: 0.9,
