@@ -7,10 +7,25 @@ import HackerTerminal from './components/HackerTerminal'
 import RegistrationForm from './components/RegistrationForm'
 import Footer from './components/Footer'
 import SuccessOverlay from './components/SuccessOverlay'
+import AdminDashboard from './components/AdminDashboard'
 
 export default function App() {
   const [submitted, setSubmitted] = useState(false)
+  const [teamCode, setTeamCode] = useState(null)
   const [initializing, setInitializing] = useState(false)
+
+  // Simple routing for Admin Dashboard
+  if (typeof window !== 'undefined' && window.location.pathname === '/admin') {
+    return (
+      <>
+        <CustomCursor />
+        <ParticleBackground />
+        <div className="grid-bg" />
+        <div className="scanline-overlay" />
+        <AdminDashboard />
+      </>
+    )
+  }
 
   return (
     <>
@@ -38,14 +53,15 @@ export default function App() {
         {initializing && (
           <div className="fixed inset-0 z-40 flex items-center justify-center pointer-events-none">
             <div className="pointer-events-auto max-w-2xl w-full px-5">
-              <RegistrationForm onSuccess={() => setSubmitted(true)} isUnfolding />
+              <RegistrationForm onSuccess={(code) => { setTeamCode(code); setSubmitted(true); }} isUnfolding />
             </div>
           </div>
         )}
       </main>
 
-      {submitted && <SuccessOverlay onClose={() => {
+      {submitted && <SuccessOverlay teamCode={teamCode} onClose={() => {
         setSubmitted(false)
+        setTeamCode(null)
         setInitializing(false)
       }} />}
     </>

@@ -11,7 +11,7 @@ const YEARS = ['1st Year', '2nd Year', '3rd Year', '4th Year']
 const blank = {
   leaderName: '', email: '', phone: '', department: '', year: '',
   teamName: '', member2: '', member3: '',
-  collegeName: '',
+  collegeName: '', transactionId: '', paymentScreenshot: null,
 }
 
 function check(step, d) {
@@ -24,7 +24,10 @@ function check(step, d) {
     if (!d.year) e.year = 'Required'
   }
   if (step === 1 && !d.teamName.trim()) e.teamName = 'Required'
-  if (step === 2 && !d.collegeName.trim()) e.collegeName = 'Required'
+  if (step === 2) {
+    if (!d.collegeName.trim()) e.collegeName = 'Required'
+    if (!d.paymentScreenshot) e.paymentScreenshot = 'Payment screenshot required'
+  }
   return e
 }
 
@@ -123,6 +126,11 @@ export default function RegistrationForm({ onSuccess, isUnfolding }) {
     setErrs((p) => ({ ...p, [k]: undefined }))
   }
 
+  const updFile = (k) => (e) => {
+    setForm((p) => ({ ...p, [k]: e.target.files[0] }))
+    setErrs((p) => ({ ...p, [k]: undefined }))
+  }
+
   const next = () => {
     const e = check(step, form)
     if (Object.keys(e).length) {
@@ -140,7 +148,7 @@ export default function RegistrationForm({ onSuccess, isUnfolding }) {
   }
   const prev = () => setStep((s) => Math.max(s - 1, 0))
 
-  const submit = () => {
+  const submit = async () => {
     const e = check(step, form)
     if (Object.keys(e).length) {
       setErrs(e)
@@ -148,31 +156,89 @@ export default function RegistrationForm({ onSuccess, isUnfolding }) {
       return
     }
     setLoading(true)
+    setErrs({}) // Clear global error if any
 
-    // Animate form out
-    anime({
-      targets: formRef.current,
-      scale: [1, 0.95],
-      opacity: [1, 0.5],
-      duration: 400,
-      easing: 'easeInQuart',
-      complete: () => {
-        setTimeout(() => {
-          setLoading(false)
-          onSuccess()
-          setForm(blank)
-          setStep(0)
-          // Reset form appearance
-          anime({
-            targets: formRef.current,
-            scale: 1,
-            opacity: 1,
-            duration: 300,
-            easing: 'easeOutQuart',
-          })
-        }, 1200)
-      },
-    })
+    // Map to backend schema ENUMS
+    const deptMap = {
+      'Computer Science & Engineering': 'CSE',
+      'Electronics & Communication': 'ECE',
+      'Electrical & Electronics': 'EEE',
+      'Mechanical Engineering': 'ME',
+      'Civil Engineering': 'CE',
+      'Information Technology': 'IT',
+      'Other': 'Other'
+    };
+    const yearMap = {
+      '1st Year': '1st',
+      '2nd Year': '2nd',
+      '3rd Year': '3rd',
+      '4th Year': '4th'
+    };
+
+    const formData = new FormData()
+    formData.append('leaderName', form.leaderName)
+    formData.append('email', form.email)
+    formData.append('phone', form.phone)
+    formData.append('department', deptMap[form.department] || form.department)
+    formData.append('year', yearMap[form.year] || form.year)
+    formData.append('teamName', form.teamName)
+    formData.append('collegeName', form.collegeName)
+    if (form.member2) formData.append('members[]', form.member2)
+    if (form.member3) formData.append('members[]', form.member3)
+    if (form.transactionId) formData.append('transactionId', form.transactionId)
+    formData.append('paymentScreenshot', form.paymentScreenshot)
+
+    try {
+      const BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000'
+      const response = await fetch(`${BASE_URL}/api/register`, {
+        method: 'POST',
+        body: formData,
+      })
+
+      // Safely parse JSON or text to avoid "Unexpected token <" error
+      let data = {}
+      const contentType = response.headers.get("content-type")
+      if (contentType && contentType.includes("application/json")) {
+        data = await response.json()
+      } else {
+        const text = await response.text()
+        console.error("Non-JSON Server Error:", text)
+        throw new Error(response.ok ? 'Unexpected response format' : `Server Error: ${response.status}`)
+      }
+
+      if (!response.ok) {
+        throw new Error(data.message || 'Registration failed with the server')
+      }
+
+      // Animate form out
+      anime({
+        targets: formRef.current,
+        scale: [1, 0.95],
+        opacity: [1, 0.5],
+        duration: 400,
+        easing: 'easeInQuart',
+        complete: () => {
+          setTimeout(() => {
+            setLoading(false)
+            onSuccess(data.teamCode)
+            setForm(blank)
+            setStep(0)
+            // Reset form appearance
+            anime({
+              targets: formRef.current,
+              scale: 1,
+              opacity: 1,
+              duration: 300,
+              easing: 'easeOutQuart',
+            })
+          }, 1200)
+        },
+      })
+    } catch (err) {
+      setLoading(false)
+      setErrs({ global: err.message })
+      anime({ targets: formRef.current, translateX: [-6, 6, -4, 4, 0], duration: 400, easing: 'easeInOutQuad' })
+    }
   }
 
   const ic = (k) => `cyber-field ${errs[k] ? 'error-state' : ''}`
@@ -322,6 +388,58 @@ export default function RegistrationForm({ onSuccess, isUnfolding }) {
                     </datalist> */}
                     <Err f="collegeName" />
                   </div>
+
+                  <div className="form-field-row">
+                    <Label>Transaction ID</Label>
+                    <input id="transaction-id" className={ic('transactionId')} placeholder="Optional"
+                      value={form.transactionId} onChange={upd('transactionId')} onFocus={onFieldFocus} onBlur={onFieldBlur} />
+                    <Err f="transactionId" />
+                  </div>
+                  
+                  {/* Payment Instructions & QR Integration */}
+                  <div className="form-field-row mt-6 p-5 rounded-xl bg-white/[0.01] border border-gold/[0.1] relative overflow-hidden group">
+                     {/* Animated glow effect on hover */}
+                     <div className="absolute inset-0 bg-gradient-to-tr from-gold/[0.05] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" />
+                     
+                     <div className="flex flex-col sm:flex-row items-center gap-6">
+                        {/* QR Code Container */}
+                        <div className="w-40 h-40 shrink-0 rounded-2xl overflow-hidden border border-white/[0.1] shadow-[0_0_15px_rgba(0,0,0,0.5)] relative">
+                          <img 
+                            src="/Athulsmenon-upi.jpg" 
+                            alt="UPI QR Code" 
+                            className="w-full h-full object-cover"
+                          />
+                          <div className="absolute inset-0 bg-gold/10 mix-blend-overlay pointer-events-none z-10"></div>
+                        </div>
+
+                        {/* Payment Text */}
+                        <div className="flex-1 text-center sm:text-left">
+                           <h4 className="text-sm font-bold text-gold mb-2 font-mono flex items-center justify-center sm:justify-start gap-2">
+                              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M12 1v22"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+                              PAYMENT REQUIRED
+                           </h4>
+                           <p className="text-white/60 text-xs leading-relaxed mb-3">
+                              Scan the QR code to complete your registration payment. Please ensure you pay the exact amount required by the organizers.
+                           </p>
+                           <p className="text-[10px] uppercase font-mono tracking-widest text-white/30">
+                              Upload the successful confirmation screenshot below.
+                           </p>
+                        </div>
+                     </div>
+                  </div>
+                  
+                  <div className="form-field-row mt-6">
+                    <Label>Payment Screenshot *</Label>
+                    <input id="payment-screenshot" type="file" accept="image/*" className={`${ic('paymentScreenshot')} py-2.5 file:mr-4 file:py-1 file:px-3 file:rounded-md file:border-0 file:text-[10px] file:font-mono file:bg-gold/20 file:text-gold hover:file:bg-gold/30 cursor-pointer text-white/50 text-xs`}
+                      onChange={updFile('paymentScreenshot')} onFocus={onFieldFocus} onBlur={onFieldBlur} />
+                    <Err f="paymentScreenshot" />
+                  </div>
+
+                  {errs.global && (
+                    <div className="p-3 rounded-xl bg-hot-pink/10 border border-hot-pink/20 form-field-row">
+                      <p className="text-hot-pink text-xs font-mono">{errs.global}</p>
+                    </div>
+                  )}
 
                   {/* Review */}
                   <div className="form-field-row mt-4 p-5 rounded-xl bg-white/[0.01] border border-white/[0.03]">

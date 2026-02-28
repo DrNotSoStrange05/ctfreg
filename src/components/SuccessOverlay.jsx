@@ -1,7 +1,7 @@
 import { useEffect, useRef } from 'react'
 import anime from 'animejs'
 
-export default function SuccessOverlay({ onClose }) {
+export default function SuccessOverlay({ teamCode, onClose }) {
   const overlayRef = useRef(null)
   const checkRef = useRef(null)
 
@@ -96,10 +96,12 @@ export default function SuccessOverlay({ onClose }) {
           <div className="access-text opacity-0">
             <div className="inline-block px-8 py-3 border-2 border-neon-green rounded-xl">
               <span className="font-mono text-lg font-black tracking-[6px] text-neon-green" style={{ textShadow: '0 0 20px rgba(0,255,136,0.3)' }}>
-                ACCESS GRANTED
+                {teamCode ? `CODE: ${teamCode}` : 'ACCESS GRANTED'}
               </span>
             </div>
-            <p className="text-white/20 text-xs mt-4">Your team is registered. See you at the arena!</p>
+            <p className="text-white/20 text-xs mt-4">
+              {teamCode ? 'Your team is registered. Save this code!' : 'Your team is registered. See you at the arena!'}
+            </p>
           </div>
 
           <button onClick={onClose} className="close-btn w-full mt-6 py-3 text-[10px] font-mono uppercase tracking-[2px] text-neon-green/40 rounded-xl border border-neon-green/8 hover:bg-neon-green/[0.03] transition-colors opacity-0" data-hover>
