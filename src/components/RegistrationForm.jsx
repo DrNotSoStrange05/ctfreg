@@ -10,7 +10,7 @@ const YEARS = ['1st Year', '2nd Year', '3rd Year', '4th Year']
 
 const blank = {
   leaderName: '', email: '', phone: '', department: '', year: '',
-  teamName: '', member2: '', member3: '', member4: '',
+  teamName: '', member2: '', member3: '',
   collegeName: '',
 }
 
@@ -196,7 +196,7 @@ export default function RegistrationForm({ onSuccess, isUnfolding }) {
             Join the <span className="text-gold">Arena</span>
           </h2>
         </div>
-
+    
         {/* Step indicator */}
         <div className="flex items-center gap-3 mb-10 px-2">
           {steps.map((s, i) => (
@@ -287,12 +287,14 @@ export default function RegistrationForm({ onSuccess, isUnfolding }) {
                     <Err f="teamName" />
                   </div>
                   <p className="text-[9px] font-mono uppercase tracking-[2px] text-white/15 mt-4 mb-2">Additional Members (optional)</p>
-                  {['member2', 'member3', 'member4'].map((k, i) => (
-                    <div key={k} className="form-field-row">
-                      <input id={`member-${i + 2}`} className="cyber-field" placeholder={`Member ${i + 2} name`}
-                        value={form[k]} onChange={upd(k)} onFocus={onFieldFocus} onBlur={onFieldBlur} />
-                    </div>
-                  ))}
+                  <div className="flex flex-col gap-4">
+                    {['member2', 'member3'].map((k, i) => (
+                      <div key={k} className="form-field-row">
+                        <input id={`member-${i + 2}`} className="cyber-field" placeholder={`Member ${i + 2} name`}
+                          value={form[k]} onChange={upd(k)} onFocus={onFieldFocus} onBlur={onFieldBlur} />
+                      </div>
+                    ))}
+                  </div>
                 </div>
               </div>
             )}
@@ -312,12 +314,12 @@ export default function RegistrationForm({ onSuccess, isUnfolding }) {
                     <Label>College Name *</Label>
                     <input id="college-name" className={ic('collegeName')} placeholder="NSS College of Engineering, Palakkad"
                       value={form.collegeName} onChange={upd('collegeName')} onFocus={onFieldFocus} onBlur={onFieldBlur} list="colleges" />
-                    <datalist id="colleges">
+                    {/* <datalist id="colleges">
                       <option value="NSS College of Engineering, Palakkad" />
                       <option value="Government Engineering College, Thrissur" />
                       <option value="College of Engineering, Trivandrum" />
                       <option value="NIT Calicut" />
-                    </datalist>
+                    </datalist> */}
                     <Err f="collegeName" />
                   </div>
 
@@ -329,7 +331,7 @@ export default function RegistrationForm({ onSuccess, isUnfolding }) {
                         ['Leader', form.leaderName],
                         ['Email', form.email],
                         ['Team', form.teamName],
-                        ['Members', [form.member2, form.member3, form.member4].filter(Boolean).join(', ') || 'Solo'],
+                        ['Members', [form.member2, form.member3 ].filter(Boolean).join(', ') || 'Solo'],
                       ].map(([l, v]) => (
                         <div key={l} className="flex gap-3 text-xs">
                           <span className="text-white/15 min-w-[55px] font-mono">{l}</span>
