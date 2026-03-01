@@ -542,7 +542,7 @@ export default function AdminDashboard() {
   const [totalPages, setTotalPages]       = useState(1)
   const [filterStatus, setFilterStatus]   = useState('')
 
-  const BASE_URL = (typeof import.meta !== 'undefined' && import.meta.env?.VITE_API_URL) || 'http://localhost:5000'
+  const BASE_URL = (typeof import.meta !== 'undefined' && import.meta.env?.VITE_API_URL) || 'https://ctfreg-backend.onrender.com'
 
   const fetchRegistrations = async (key = adminKey, currentPage = page, status = filterStatus) => {
     setLoading(true)
