@@ -364,7 +364,7 @@ export default function Hero({ isInitializing, onInitialize }) {
           </div>
           <div className="status-item items-center gap-2 opacity-0 hidden sm:flex">
             <span className="text-[10px] font-mono tracking-[2px] text-white/25 uppercase">CPU:</span>
-            <span className="text-[10px] font-mono tracking-[2px] text-cyber font-bold">100%</span>
+            <span className="text-[10px] font-mono tracking-[2px] text-cyber font-bold">{memUsage.toFixed(1)}%</span>
           </div>
         </div>
 
@@ -440,7 +440,7 @@ export default function Hero({ isInitializing, onInitialize }) {
       </div>
 
       {/* ═══ Countdown Timer ═══ */}
-      <div className="hero-meta flex items-center justify-center gap-3 sm:gap-4 mb-12 opacity-0">
+      <div className="hero-meta flex items-center justify-center gap-3 sm:gap-4 opacity-0" style={{ marginBottom: '1rem' }}>
         {timerUnits.map((u) => (
           <div key={u.label} className="timer-block">
             <div className="text-xl sm:text-2xl font-mono font-bold text-cyber tabular-nums">
@@ -452,7 +452,7 @@ export default function Hero({ isInitializing, onInitialize }) {
       </div>
 
       {/* ═══ Initialize CTA — extra breathing room via mt-12 above ═══ */}
-      <div ref={btnRef} className="opacity-0 relative">
+      <div ref={btnRef} className="opacity-0 relative mt-10">
         <button
           onClick={handleClick}
           onMouseEnter={handleHoverIn}
