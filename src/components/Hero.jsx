@@ -364,7 +364,7 @@ export default function Hero({ isInitializing, onInitialize }) {
           </div>
           <div className="status-item items-center gap-2 opacity-0 hidden sm:flex">
             <span className="text-[10px] font-mono tracking-[2px] text-white/25 uppercase">CPU:</span>
-            <span className="text-[10px] font-mono tracking-[2px] text-cyber font-bold">93%</span>
+            <span className="text-[10px] font-mono tracking-[2px] text-cyber font-bold">{memUsage.toFixed(1)}%</span>
           </div>
         </div>
 
