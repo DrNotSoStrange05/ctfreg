@@ -287,7 +287,7 @@ export default function Hero({ isInitializing, onInitialize, hasRegistered }) {
 
   const dPath = "M0,5 L60,5 L80,25 L80,65 L60,85 L0,85 Z M18,22 L18,68 L50,68 L62,56 L62,34 L50,22 Z"
   const ePath = "M95,5 L175,5 L175,22 L113,22 L113,37 L160,37 L160,52 L113,52 L113,68 L175,68 L175,85 L95,85 Z"
-  const cPath = "M270,5 L190,5 L190,85 L270,85 L270,68 L208,68 L208,22 L270,22 Z"
+  const d2Path = "M190,5 L250,5 L270,25 L270,65 L250,85 L190,85 Z M208,22 L208,68 L240,68 L252,56 L252,34 L240,22 Z"
   const sPath = "M285,5 L365,5 L365,21 L303,21 L303,37 L365,37 L365,85 L285,85 L285,69 L347,69 L347,53 L285,53 Z"
   const e2Path = "M380,5 L460,5 L460,22 L398,22 L398,37 L445,37 L445,52 L398,52 L398,68 L460,68 L460,85 L380,85 Z"
   const c2Path = "M555,5 L475,5 L475,85 L555,85 L555,68 L493,68 L493,22 L555,22 Z"
@@ -704,7 +704,7 @@ export default function Hero({ isInitializing, onInitialize, hasRegistered }) {
               <g fill="transparent" stroke="#00ffff" strokeWidth="2" strokeLinejoin="miter" strokeLinecap="square">
                 <path className="dedsec-path" d={dPath} style={{ opacity: 0 }} />
                 <path className="dedsec-path" d={ePath} style={{ opacity: 0 }} />
-                <path className="dedsec-path" d={cPath} style={{ opacity: 0 }} />
+                <path className="dedsec-path" d={d2Path} style={{ opacity: 0 }} />
                 <path className="dedsec-path" d={sPath} style={{ opacity: 0 }} />
                 <path className="dedsec-path" d={e2Path} style={{ opacity: 0 }} />
                 <path className="dedsec-path" d={c2Path} style={{ opacity: 0 }} />
