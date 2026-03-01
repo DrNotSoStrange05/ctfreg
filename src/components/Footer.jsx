@@ -144,14 +144,14 @@ export default function Footer() {
               <span>Department of CSE</span>
               <span>NSS College of Engineering</span>
               <span>Palakkad, Kerala 678008</span>
-              <a
+              {/* <a
                 href="mailto:dedsec@nssce.ac.in"
                 style={{ color: 'rgba(0,245,228,0.45)', textDecoration: 'none', marginTop: '0.5rem', transition: 'color 0.25s, text-shadow 0.25s' }}
                 onMouseEnter={e => { e.target.style.color = CYAN; e.target.style.textShadow = `0 0 10px ${CYAN}` }}
                 onMouseLeave={e => { e.target.style.color = 'rgba(0,245,228,0.45)'; e.target.style.textShadow = 'none' }}
               >
                 dedsec@nssce.ac.in
-              </a>
+              </a> */}
             </div>
           </div>
 

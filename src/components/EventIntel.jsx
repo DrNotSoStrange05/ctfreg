@@ -150,7 +150,7 @@ export default function EventIntel() {
             data-animate="up" data-delay="340"
             style={{ display: "flex", gap: "2rem", alignItems: "center", marginTop: "2rem", flexWrap: "wrap", justifyContent: "center" }}
           >
-            {["CSE DEPARTMENT", "SOLASTA FEST", "NSS COLLEGE OF ENGINEERING"].map((tag, i) => (
+            {["CSE DEPARTMENT", "SOLASTA TECHFEST", "NSS COLLEGE OF ENGINEERING"].map((tag, i) => (
               <span key={i} style={{ display: "flex", alignItems: "center", gap: "0.5rem", fontSize: "11px", letterSpacing: "0.15em", color: CYAN_TEXT_DIM }}>
                 <span style={{ width: "6px", height: "6px", borderRadius: "50%", background: CYAN, display: "inline-block", boxShadow: `0 0 6px ${CYAN}` }} />
                 {tag}

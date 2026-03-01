@@ -64,7 +64,7 @@ export default function Hero({ isInitializing, onInitialize }) {
     }, '-=600')
 
     // 3. SVG Path Morphing — Laser/decode drawing
-    const paths = svgRef.current?.querySelectorAll('.decsec-path')
+    const paths = svgRef.current?.querySelectorAll('.dedsec-path')
     if (paths) {
       tl.add({
         targets: paths,
@@ -156,7 +156,7 @@ export default function Hero({ isInitializing, onInitialize }) {
     const interval = setInterval(() => {
       if (document.hidden || isInitializing) return
 
-      const targets = ['.decsec-svg']
+      const targets = ['.dedsec-svg']
       anime.timeline({ easing: 'linear' })
         .add({
           targets,
@@ -304,7 +304,7 @@ export default function Hero({ isInitializing, onInitialize }) {
     })
   }, [onInitialize])
 
-  // SVG paths for 'DECSEC' — clean industrial block letters
+  // SVG paths for 'dedsec' — clean industrial block letters
   // Each letter: 80 wide, 80 tall, 15px gap, bar thickness 18px
   // Layout: D(0-80) E(95-175) C(190-270) S(285-365) E(380-460) C(475-555)
 
@@ -315,7 +315,7 @@ export default function Hero({ isInitializing, onInitialize }) {
   const ePath = "M95,5 L175,5 L175,22 L113,22 L113,37 L160,37 L160,52 L113,52 L113,68 L175,68 L175,85 L95,85 Z"
 
   // C: open bracket shape
-  const cPath = "M270,5 L190,5 L190,85 L270,85 L270,68 L208,68 L208,22 L270,22 Z"
+  const d2Path = "M190,5 L250,5 L270,25 L270,65 L250,85 L190,85 Z M208,22 L208,68 L240,68 L252,56 L252,34 L240,22 Z"
 
   // S: symmetric block S — top bar → left connector → mid bar → right connector → bottom bar
   const sPath = "M285,5 L365,5 L365,21 L303,21 L303,37 L365,37 L365,85 L285,85 L285,69 L347,69 L347,53 L285,53 Z"
@@ -369,7 +369,7 @@ export default function Hero({ isInitializing, onInitialize }) {
         </div>
 
         <div className="status-item flex items-center gap-2 opacity-0">
-          <span className="text-[10px] font-mono tracking-[4px] text-white/15 uppercase hidden sm:inline">DECSEC://</span>
+          <span className="text-[10px] font-mono tracking-[4px] text-white/15 uppercase hidden sm:inline">dedsec://</span>
           <span className="text-[10px] font-mono tracking-[4px] text-cyber/40 uppercase">SOLASTA.CTF</span>
         </div>
 
@@ -393,19 +393,19 @@ export default function Hero({ isInitializing, onInitialize }) {
         </div>
       </div>
 
-      {/* ═══ DECSEC SVG Title — Focal Point ═══ */}
+      {/* ═══ dedsec SVG Title — Focal Point ═══ */}
       <div className="mb-8 relative w-full" style={{ maxWidth: '800px' }}>
         <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
           <div className="w-[500px] h-[120px] bg-cyber/[0.02] blur-[80px] rounded-full" />
         </div>
-        <svg ref={svgRef} viewBox="0 0 560 90" className="decsec-svg w-full relative z-10">
+        <svg ref={svgRef} viewBox="0 0 560 90" className="dedsec-svg w-full relative z-10">
           <g fill="transparent" stroke="#00ffff" strokeWidth="2" strokeLinejoin="miter" strokeLinecap="square">
-            <path className="decsec-path" d={dPath} style={{ opacity: 0 }} />
-            <path className="decsec-path" d={ePath} style={{ opacity: 0 }} />
-            <path className="decsec-path" d={cPath} style={{ opacity: 0 }} />
-            <path className="decsec-path" d={sPath} style={{ opacity: 0 }} />
-            <path className="decsec-path" d={e2Path} style={{ opacity: 0 }} />
-            <path className="decsec-path" d={c2Path} style={{ opacity: 0 }} />
+            <path className="dedsec-path" d={dPath} style={{ opacity: 0 }} />
+            <path className="dedsec-path" d={ePath} style={{ opacity: 0 }} />
+            <path className="dedsec-path" d={d2Path} style={{ opacity: 0 }} />
+            <path className="dedsec-path" d={sPath} style={{ opacity: 0 }} />
+            <path className="dedsec-path" d={e2Path} style={{ opacity: 0 }} />
+            <path className="dedsec-path" d={c2Path} style={{ opacity: 0 }} />
           </g>
         </svg>
       </div>
@@ -427,11 +427,11 @@ export default function Hero({ isInitializing, onInitialize }) {
       <div className="flex flex-col sm:flex-row items-center gap-4 sm:gap-10 mb-10">
         <div className="hero-meta flex items-center gap-2.5 opacity-0">
           <div className="w-2 h-2 bg-gold/50 rounded-full" />
-          <span className="text-xs sm:text-sm font-mono tracking-[3px] text-white/35 uppercase">CSE Department</span>
+          <span className="text-xs sm:text-sm font-mono tracking-[3px] text-white/35 uppercase">STACS</span>
         </div>
         <div className="hero-meta flex items-center gap-2.5 opacity-0">
           <div className="w-2 h-2 bg-cyber/50 rounded-full" />
-          <span className="text-xs sm:text-sm font-mono tracking-[3px] text-white/35 uppercase">Solasta Fest</span>
+          <span className="text-xs sm:text-sm font-mono tracking-[3px] text-white/35 uppercase">Solasta TechFest</span>
         </div>
         <div className="hero-meta flex items-center gap-2.5 opacity-0">
           <div className="w-2 h-2 bg-neon-green/50 rounded-full" />
