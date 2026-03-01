@@ -129,7 +129,7 @@ export default function EventIntel() {
               letterSpacing: "-0.02em",
               lineHeight: 0.9,
               margin: 0,
-              textShadow: `0 0 30px ${CYAN}, 0 0 60px rgba(0,245,228,0.3), 0 0 100px rgba(0,245,228,0.1)`,
+              textShadow: `0 0 80px ${CYAN}, 0 0 60px rgba(0,245,228,0.3), 0 0 100px rgba(0,245,228,0.1)`,
             }}
           >
             THE{" "}
@@ -137,7 +137,7 @@ export default function EventIntel() {
               DEDSEC
             </span>
             <br />
-            <span style={{ color: CYAN, textShadow: `0 0 30px ${CYAN}, 0 0 60px rgba(0,245,228,0.3)` }}>
+            <span style={{ color: CYAN, textShadow: `0 0 80px ${CYAN}, 0 0 60px rgba(0,245,228,0.3)` }}>
               CTF
             </span>{" "}
             <span style={{ color: "rgba(0,245,228,0.4)", textShadow: "none", fontWeight: "300" }}>
