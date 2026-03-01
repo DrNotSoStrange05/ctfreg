@@ -14,7 +14,7 @@ export default function Hero({ isInitializing, onInitialize }) {
   const [netPackets, setNetPackets] = useState(1024)
 
   // Countdown timer — set your event date here
-  const EVENT_DATE = new Date('2026-03-15T09:00:00+05:30')
+  const EVENT_DATE = new Date('2026-03-06T19:00:00+05:30')
   const [countdown, setCountdown] = useState({ days: 0, hours: 0, mins: 0, secs: 0 })
   
   useEffect(() => {
@@ -484,7 +484,7 @@ export default function Hero({ isInitializing, onInitialize }) {
               <span className="text-cyber/60">$</span>
               <span className="text-white/30">~/</span>
             </span>
-            <span className="text-cyber">Initialize</span>
+            <span className="text-cyber">Register</span>
             <span className="terminal-cursor-blink !w-[7px] !h-[16px] !bg-cyber/80" />
           </span>
         </button>
