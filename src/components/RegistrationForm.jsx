@@ -41,7 +41,6 @@ export default function RegistrationForm({ onSuccess, isUnfolding }) {
 
   const steps = ['Leader', 'Team', 'College']
 
-  // Scroll or Unfold triggered entrance
   useEffect(() => {
     const startEntrance = () => {
       anime({
@@ -88,7 +87,6 @@ export default function RegistrationForm({ onSuccess, isUnfolding }) {
     }
   }, [isUnfolding])
 
-  // Animate fields on step change
   useEffect(() => {
     anime({
       targets: '.form-field-row',
@@ -100,7 +98,6 @@ export default function RegistrationForm({ onSuccess, isUnfolding }) {
     })
   }, [step])
 
-  // Kinetic field focus — spring border animation
   const onFieldFocus = useCallback((e) => {
     anime({
       targets: e.target,
@@ -135,7 +132,6 @@ export default function RegistrationForm({ onSuccess, isUnfolding }) {
     const e = check(step, form)
     if (Object.keys(e).length) {
       setErrs(e)
-      // Shake error fields
       anime({
         targets: '.error-state',
         translateX: [-6, 6, -4, 4, 0],
@@ -156,9 +152,8 @@ export default function RegistrationForm({ onSuccess, isUnfolding }) {
       return
     }
     setLoading(true)
-    setErrs({}) // Clear global error if any
+    setErrs({})
 
-    // Map to backend schema ENUMS
     const deptMap = {
       'Computer Science & Engineering': 'CSE',
       'Electronics & Communication': 'ECE',
@@ -195,7 +190,6 @@ export default function RegistrationForm({ onSuccess, isUnfolding }) {
         body: formData,
       })
 
-      // Safely parse JSON or text to avoid "Unexpected token <" error
       let data = {}
       const contentType = response.headers.get("content-type")
       if (contentType && contentType.includes("application/json")) {
@@ -210,7 +204,6 @@ export default function RegistrationForm({ onSuccess, isUnfolding }) {
         throw new Error(data.message || 'Registration failed with the server')
       }
 
-      // Animate form out
       anime({
         targets: formRef.current,
         scale: [1, 0.95],
@@ -223,7 +216,6 @@ export default function RegistrationForm({ onSuccess, isUnfolding }) {
             onSuccess(data.teamCode)
             setForm(blank)
             setStep(0)
-            // Reset form appearance
             anime({
               targets: formRef.current,
               scale: 1,
@@ -243,8 +235,9 @@ export default function RegistrationForm({ onSuccess, isUnfolding }) {
 
   const ic = (k) => `cyber-field ${errs[k] ? 'error-state' : ''}`
 
+  // FIX: Label was text-white/20 — too faint
   const Label = ({ children }) => (
-    <label className="block text-[10px] font-mono uppercase tracking-[2px] text-white/20 mb-2">{children}</label>
+    <label className="block text-[10px] font-mono uppercase tracking-[2px] text-white/60 mb-2">{children}</label>
   )
   const Err = ({ f }) => errs[f] ? <p className="text-hot-pink text-[10px] mt-1.5 font-mono">{errs[f]}</p> : null
 
@@ -256,7 +249,8 @@ export default function RegistrationForm({ onSuccess, isUnfolding }) {
         {/* Header */}
         <div className="reg-header text-center mb-12 opacity-0">
           <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-white/[0.05] bg-white/[0.015] mb-6">
-            <span className="text-[10px] font-mono uppercase tracking-[4px] text-gold/60">Registration</span>
+            {/* FIX: was text-gold/60 — bumped to text-gold/80 */}
+            <span className="text-[10px] font-mono uppercase tracking-[4px] text-gold/80">Registration</span>
           </div>
           <h2 className="text-3xl sm:text-4xl font-bold text-white">
             Join the <span className="text-gold">Arena</span>
@@ -271,7 +265,8 @@ export default function RegistrationForm({ onSuccess, isUnfolding }) {
                 <div className={`step-pip ${i < step ? 'done' : i === step ? 'active' : 'wait'}`} style={{ opacity: 0 }}>
                   {i < step ? '✓' : `0${i + 1}`}
                 </div>
-                <span className="text-[8px] uppercase tracking-[2px] text-white/15 hidden sm:block font-mono">{s}</span>
+                {/* FIX: was text-white/15 — too faint */}
+                <span className="text-[8px] uppercase tracking-[2px] text-white/50 hidden sm:block font-mono">{s}</span>
               </div>
               {i < 2 && <div className={`step-bar ${i < step ? 'filled' : 'empty'}`} />}
             </div>
@@ -352,7 +347,8 @@ export default function RegistrationForm({ onSuccess, isUnfolding }) {
                       value={form.teamName} onChange={upd('teamName')} onFocus={onFieldFocus} onBlur={onFieldBlur} />
                     <Err f="teamName" />
                   </div>
-                  <p className="text-[9px] font-mono uppercase tracking-[2px] text-white/15 mt-4 mb-2">Additional Members (optional)</p>
+                  {/* FIX: was text-white/15 — too faint */}
+                  <p className="text-[9px] font-mono uppercase tracking-[2px] text-white/50 mt-4 mb-2">Additional Members (optional)</p>
                   <div className="flex flex-col gap-4">
                     {['member2', 'member3'].map((k, i) => (
                       <div key={k} className="form-field-row">
@@ -380,12 +376,6 @@ export default function RegistrationForm({ onSuccess, isUnfolding }) {
                     <Label>College Name *</Label>
                     <input id="college-name" className={ic('collegeName')} placeholder="NSS College of Engineering, Palakkad"
                       value={form.collegeName} onChange={upd('collegeName')} onFocus={onFieldFocus} onBlur={onFieldBlur} list="colleges" />
-                    {/* <datalist id="colleges">
-                      <option value="NSS College of Engineering, Palakkad" />
-                      <option value="Government Engineering College, Thrissur" />
-                      <option value="College of Engineering, Trivandrum" />
-                      <option value="NIT Calicut" />
-                    </datalist> */}
                     <Err f="collegeName" />
                   </div>
 
@@ -396,13 +386,11 @@ export default function RegistrationForm({ onSuccess, isUnfolding }) {
                     <Err f="transactionId" />
                   </div>
                   
-                  {/* Payment Instructions & QR Integration */}
+                  {/* Payment Instructions & QR */}
                   <div className="form-field-row mt-6 p-5 rounded-xl bg-white/[0.01] border border-gold/[0.1] relative overflow-hidden group">
-                     {/* Animated glow effect on hover */}
                      <div className="absolute inset-0 bg-gradient-to-tr from-gold/[0.05] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" />
                      
                      <div className="flex flex-col sm:flex-row items-center gap-6">
-                        {/* QR Code Container */}
                         <div className="w-40 h-40 shrink-0 rounded-2xl overflow-hidden border border-white/[0.1] shadow-[0_0_15px_rgba(0,0,0,0.5)] relative">
                           <img 
                             src="/john-qr.jpg" 
@@ -412,16 +400,17 @@ export default function RegistrationForm({ onSuccess, isUnfolding }) {
                           <div className="absolute inset-0 bg-gold/10 mix-blend-overlay pointer-events-none z-10"></div>
                         </div>
 
-                        {/* Payment Text */}
                         <div className="flex-1 text-center sm:text-left">
                            <h4 className="text-sm font-bold text-gold mb-2 font-mono flex items-center justify-center sm:justify-start gap-2">
                               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M12 1v22"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
                               PAYMENT REQUIRED
                            </h4>
-                           <p className="text-white/60 text-xs leading-relaxed mb-3">
+                           {/* FIX: was text-white/60 — acceptable but bumped slightly */}
+                           <p className="text-white/75 text-xs leading-relaxed mb-3">
                               Scan the QR code to complete your registration payment. Please ensure you pay the exact amount required by the organizers.
                            </p>
-                           <p className="text-[10px] uppercase font-mono tracking-widest text-white/30">
+                           {/* FIX: was text-white/30 — too faint */}
+                           <p className="text-[10px] uppercase font-mono tracking-widest text-white/60">
                               Upload the successful confirmation screenshot below.
                            </p>
                         </div>
@@ -430,7 +419,8 @@ export default function RegistrationForm({ onSuccess, isUnfolding }) {
                   
                   <div className="form-field-row mt-6">
                     <Label>Payment Screenshot *</Label>
-                    <input id="payment-screenshot" type="file" accept="image/*" className={`${ic('paymentScreenshot')} py-2.5 file:mr-4 file:py-1 file:px-3 file:rounded-md file:border-0 file:text-[10px] file:font-mono file:bg-gold/20 file:text-gold hover:file:bg-gold/30 cursor-pointer text-white/50 text-xs`}
+                    {/* FIX: was text-white/50 — bumped slightly */}
+                    <input id="payment-screenshot" type="file" accept="image/*" className={`${ic('paymentScreenshot')} py-2.5 file:mr-4 file:py-1 file:px-3 file:rounded-md file:border-0 file:text-[10px] file:font-mono file:bg-gold/20 file:text-gold hover:file:bg-gold/30 cursor-pointer text-white/65 text-xs`}
                       onChange={updFile('paymentScreenshot')} onFocus={onFieldFocus} onBlur={onFieldBlur} />
                     <Err f="paymentScreenshot" />
                   </div>
@@ -443,17 +433,20 @@ export default function RegistrationForm({ onSuccess, isUnfolding }) {
 
                   {/* Review */}
                   <div className="form-field-row mt-4 p-5 rounded-xl bg-white/[0.01] border border-white/[0.03]">
-                    <p className="text-[9px] font-mono text-gold/40 uppercase tracking-[4px] mb-4">Review</p>
+                    {/* FIX: was text-gold/40 — too faint */}
+                    <p className="text-[9px] font-mono text-gold/70 uppercase tracking-[4px] mb-4">Review</p>
                     <div className="space-y-2">
                       {[
                         ['Leader', form.leaderName],
                         ['Email', form.email],
                         ['Team', form.teamName],
-                        ['Members', [form.member2, form.member3 ].filter(Boolean).join(', ') || 'Solo'],
+                        ['Members', [form.member2, form.member3].filter(Boolean).join(', ') || 'Solo'],
                       ].map(([l, v]) => (
                         <div key={l} className="flex gap-3 text-xs">
-                          <span className="text-white/15 min-w-[55px] font-mono">{l}</span>
-                          <span className="text-white/50 font-mono">{v || '—'}</span>
+                          {/* FIX: was text-white/15 — too faint */}
+                          <span className="text-white/50 min-w-[55px] font-mono">{l}</span>
+                          {/* FIX: was text-white/50 — bumped slightly */}
+                          <span className="text-white/75 font-mono">{v || '—'}</span>
                         </div>
                       ))}
                     </div>
@@ -468,7 +461,8 @@ export default function RegistrationForm({ onSuccess, isUnfolding }) {
             <button
               onClick={prev} disabled={step === 0} id="btn-prev"
               className={`px-5 py-3 rounded-xl text-[10px] font-mono uppercase tracking-[2px] font-bold transition-all ${
-                step === 0 ? 'text-white/8' : 'text-white/30 hover:text-white hover:bg-white/[0.03] border border-white/[0.05]'
+                // FIX: was text-white/8 (disabled) and text-white/30 (enabled) — both too faint
+                step === 0 ? 'text-white/20' : 'text-white/55 hover:text-white hover:bg-white/[0.03] border border-white/[0.05]'
               }`}
               data-hover
             >

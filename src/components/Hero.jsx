@@ -304,7 +304,6 @@ export default function Hero({ isInitializing, onInitialize, hasRegistered }) {
 
   return (
     <>
-      {/* Global styles injected inline */}
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Orbitron:wght@400;700;900&family=VT323&display=swap');
 
@@ -315,7 +314,6 @@ export default function Hero({ isInitializing, onInitialize, hasRegistered }) {
           overflow: hidden;
         }
 
-        /* CRT grid overlay */
         .hero-root::before {
           content: '';
           position: absolute;
@@ -328,7 +326,6 @@ export default function Hero({ isInitializing, onInitialize, hasRegistered }) {
           z-index: 1;
         }
 
-        /* Scanline CRT overlay */
         .hero-root::after {
           content: '';
           position: absolute;
@@ -358,7 +355,6 @@ export default function Hero({ isInitializing, onInitialize, hasRegistered }) {
           opacity: 0.04;
         }
 
-        /* Status bar */
         .sys-bar {
           font-family: 'Share Tech Mono', monospace;
           border-bottom: 1px solid rgba(0,255,255,0.08);
@@ -375,29 +371,29 @@ export default function Hero({ isInitializing, onInitialize, hasRegistered }) {
           font-size: 9px;
           letter-spacing: 2px;
           text-transform: uppercase;
-          color: rgba(0,255,255,0.45);
+          /* FIX: was rgba(0,255,255,0.45) — bumped up */
+          color: rgba(0,255,255,0.65);
         }
 
         .sys-chip.alert {
           border-color: rgba(255,40,100,0.2);
-          color: rgba(255,40,100,0.8);
+          color: rgba(255,40,100,0.9);
         }
 
         .sys-chip.active {
           border-color: rgba(0,255,100,0.2);
-          color: rgba(0,255,100,0.7);
+          color: rgba(0,255,100,0.85);
         }
 
-        /* Tagline */
+        /* FIX: subtitle-track was rgba(0,255,255,0.35) — too faint */
         .subtitle-track {
           font-family: 'Orbitron', monospace;
           letter-spacing: 0.35em;
           font-size: clamp(10px, 1.4vw, 15px);
-          color: rgba(0,255,255,0.35);
+          color: rgba(0,255,255,0.7);
           text-transform: uppercase;
         }
 
-        /* Corner decorators */
         .corner-tl {
           position: absolute;
           top: 80px; left: 20px;
@@ -427,7 +423,6 @@ export default function Hero({ isInitializing, onInitialize, hasRegistered }) {
           border-bottom: 1px solid rgba(0,255,255,0.15);
         }
 
-        /* Timer blocks — brutalist */
         .timer-cell {
           display: flex;
           flex-direction: column;
@@ -455,24 +450,25 @@ export default function Hero({ isInitializing, onInitialize, hasRegistered }) {
           line-height: 1;
           text-shadow: 0 0 20px rgba(0,255,255,0.5), 0 0 40px rgba(0,255,255,0.2);
         }
+        /* FIX: was rgba(0,255,255,0.25) — too faint */
         .timer-label {
           font-family: 'Share Tech Mono', monospace;
           font-size: 9px;
           letter-spacing: 3px;
-          color: rgba(0,255,255,0.25);
+          color: rgba(0,255,255,0.6);
           text-transform: uppercase;
           margin-top: 6px;
         }
+        /* FIX: was rgba(0,255,255,0.2) — too faint */
         .timer-colon {
           font-family: 'VT323', monospace;
           font-size: 40px;
-          color: rgba(0,255,255,0.2);
+          color: rgba(0,255,255,0.5);
           line-height: 1;
           align-self: center;
           margin-bottom: 16px;
         }
 
-        /* Prize block */
         .prize-block {
           position: relative;
           border: 1px solid rgba(255,200,50,0.2);
@@ -490,7 +486,8 @@ export default function Hero({ isInitializing, onInitialize, hasRegistered }) {
           font-family: 'Share Tech Mono', monospace;
           font-size: 8px;
           letter-spacing: 4px;
-          color: rgba(255,200,50,0.35);
+          /* FIX: was rgba(255,200,50,0.35) — too faint */
+          color: rgba(255,200,50,0.7);
           background: #020408;
           padding: 0 8px;
           transform: translateY(-50%);
@@ -504,7 +501,7 @@ export default function Hero({ isInitializing, onInitialize, hasRegistered }) {
           text-shadow: 0 0 30px rgba(255,200,50,0.4);
         }
 
-        /* Meta pills */
+        /* FIX: was rgba(255,255,255,0.25) — too faint */
         .meta-pill {
           display: inline-flex;
           align-items: center;
@@ -514,12 +511,11 @@ export default function Hero({ isInitializing, onInitialize, hasRegistered }) {
           font-family: 'Share Tech Mono', monospace;
           font-size: 10px;
           letter-spacing: 2.5px;
-          color: rgba(255,255,255,0.25);
+          color: rgba(255,255,255,0.6);
           text-transform: uppercase;
           background: rgba(255,255,255,0.015);
         }
 
-        /* CTA button */
         .cta-outer {
           position: relative;
           display: inline-block;
@@ -544,22 +540,23 @@ export default function Hero({ isInitializing, onInitialize, hasRegistered }) {
         .cta-btn:hover {
           background: rgba(0,255,255,0.07);
         }
+        /* FIX: was rgba(0,255,255,0.35) — too faint */
         .cta-label-prefix {
-          color: rgba(0,255,255,0.35);
+          color: rgba(0,255,255,0.65);
           font-size: 11px;
           margin-right: 8px;
         }
+        /* FIX: was rgba(255,255,255,0.06) — nearly invisible */
         .cta-hex {
           display: block;
           text-align: center;
           margin-top: 10px;
           font-size: 9px;
           letter-spacing: 2px;
-          color: rgba(255,255,255,0.06);
+          color: rgba(255,255,255,0.3);
           font-family: 'Share Tech Mono', monospace;
         }
 
-        /* Scroll indicator */
         .scroll-pip {
           display: flex;
           flex-direction: column;
@@ -576,16 +573,16 @@ export default function Hero({ isInitializing, onInitialize, hasRegistered }) {
           0%, 100% { opacity: 0.3; transform: scaleY(1); }
           50% { opacity: 0.7; transform: scaleY(1.2); }
         }
+        /* FIX: was rgba(255,255,255,0.15) — too faint */
         .scroll-text {
           font-family: 'Share Tech Mono', monospace;
           font-size: 8px;
           letter-spacing: 4px;
-          color: rgba(255,255,255,0.15);
+          color: rgba(255,255,255,0.45);
           text-transform: uppercase;
           writing-mode: vertical-rl;
         }
 
-        /* Ambient glow behind SVG */
         .svg-ambient {
           position: absolute;
           inset: -30% -10%;
@@ -594,7 +591,6 @@ export default function Hero({ isInitializing, onInitialize, hasRegistered }) {
           filter: blur(40px);
         }
 
-        /* Vertical side labels */
         .side-label {
           position: absolute;
           top: 50%;
@@ -602,25 +598,36 @@ export default function Hero({ isInitializing, onInitialize, hasRegistered }) {
           font-family: 'Share Tech Mono', monospace;
           font-size: 8px;
           letter-spacing: 5px;
-          color: rgba(0,255,255,0.08);
+          /* FIX: was rgba(0,255,255,0.08) — nearly invisible */
+          color: rgba(0,255,255,0.35);
           text-transform: uppercase;
           white-space: nowrap;
         }
         .side-label-left { left: -30px; }
         .side-label-right { right: -30px; }
 
-        /* Horizontal rule lines */
         .h-rule {
           width: 100%;
           height: 1px;
           background: linear-gradient(90deg, transparent, rgba(0,255,255,0.07) 20%, rgba(0,255,255,0.07) 80%, transparent);
         }
 
+        /* FIX: was rgba(0,255,255,0.12) — too faint */
         .divider-slash {
-          color: rgba(0,255,255,0.12);
+          color: rgba(0,255,255,0.4);
           font-family: 'Share Tech Mono', monospace;
           font-size: 14px;
           line-height: 1;
+        }
+
+        @keyframes flicker {
+          0%, 97%, 100% { opacity: 1; }
+          98% { opacity: 0.85; }
+          99% { opacity: 1; }
+        }
+        @keyframes blink {
+          0%, 49% { opacity: 1; }
+          50%, 100% { opacity: 0; }
         }
       `}</style>
 
@@ -655,32 +662,38 @@ export default function Hero({ isInitializing, onInitialize, hasRegistered }) {
               SYS.ONLINE
             </div>
             <div className="status-item sys-chip opacity-0 hidden sm:flex">
-              <span style={{ color: 'rgba(255,255,255,0.2)' }}>CPU</span>
+              {/* FIX: was rgba(255,255,255,0.2) */}
+              <span style={{ color: 'rgba(255,255,255,0.5)' }}>CPU</span>
               <span style={{ color: '#00ffff', fontWeight: 'bold' }}>100%</span>
             </div>
           </div>
 
           <div className="status-item sys-chip opacity-0" style={{ borderColor: 'rgba(0,255,255,0.12)' }}>
-            <span style={{ color: 'rgba(255,255,255,0.1)' }} className="hidden sm:inline">DEDSEC://</span>
-            <span style={{ color: 'rgba(0,255,255,0.5)' }}>SOLASTA.CTF</span>
+            {/* FIX: was rgba(255,255,255,0.1) */}
+            <span style={{ color: 'rgba(255,255,255,0.4)' }} className="hidden sm:inline">DEDSEC://</span>
+            <span style={{ color: 'rgba(0,255,255,0.75)' }}>SOLASTA.CTF</span>
           </div>
 
           <div className="flex items-center gap-3">
             <div className="status-item sys-chip opacity-0 hidden sm:flex">
-              <span style={{ color: 'rgba(255,255,255,0.2)' }}>MEM</span>
-              <span style={{ color: 'rgb(255,200,50)', opacity: 0.7 }}>{memUsage.toFixed(1)}%</span>
+              {/* FIX: was rgba(255,255,255,0.2) */}
+              <span style={{ color: 'rgba(255,255,255,0.5)' }}>MEM</span>
+              <span style={{ color: 'rgb(255,200,50)', opacity: 0.9 }}>{memUsage.toFixed(1)}%</span>
             </div>
             <div className="status-item sys-chip opacity-0 hidden md:flex">
-              <span style={{ color: 'rgba(255,255,255,0.2)' }}>NET</span>
-              <span style={{ color: 'rgba(0,255,255,0.55)' }}>{netPackets}PKT</span>
+              {/* FIX: was rgba(255,255,255,0.2) */}
+              <span style={{ color: 'rgba(255,255,255,0.5)' }}>NET</span>
+              <span style={{ color: 'rgba(0,255,255,0.75)' }}>{netPackets}PKT</span>
             </div>
             <div className="status-item sys-chip opacity-0 hidden lg:flex">
-              <span style={{ color: 'rgba(255,255,255,0.2)' }}>UPTIME</span>
-              <span style={{ color: 'rgba(0,255,100,0.55)' }}>99.9%</span>
+              {/* FIX: was rgba(255,255,255,0.2) */}
+              <span style={{ color: 'rgba(255,255,255,0.5)' }}>UPTIME</span>
+              <span style={{ color: 'rgba(0,255,100,0.75)' }}>99.9%</span>
             </div>
             <div className="status-item sys-chip opacity-0">
               <div className="w-1 h-1 rounded-full" style={{ background: 'rgba(0,255,255,0.4)' }} />
-              <span style={{ color: 'rgba(255,255,255,0.35)' }}>{timeStr}</span>
+              {/* FIX: was rgba(255,255,255,0.35) */}
+              <span style={{ color: 'rgba(255,255,255,0.65)' }}>{timeStr}</span>
             </div>
           </div>
         </div>
@@ -691,7 +704,8 @@ export default function Hero({ isInitializing, onInitialize, hasRegistered }) {
           {/* Top micro-label */}
           <div className="flex items-center gap-4 mb-6" style={{ marginTop: '0' }}>
             <div className="h-rule" style={{ width: '60px' }} />
-            <span style={{ fontFamily: 'Share Tech Mono, monospace', fontSize: '9px', letterSpacing: '5px', color: 'rgba(0,255,255,0.2)', textTransform: 'uppercase' }}>
+            {/* FIX: was rgba(0,255,255,0.2) */}
+            <span style={{ fontFamily: 'Share Tech Mono, monospace', fontSize: '9px', letterSpacing: '5px', color: 'rgba(0,255,255,0.55)', textTransform: 'uppercase' }}>
               CSE DEPT // SOLASTA FEST // 2026
             </span>
             <div className="h-rule" style={{ width: '60px' }} />

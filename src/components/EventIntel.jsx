@@ -117,7 +117,6 @@ export default function EventIntel() {
               fontSize: "clamp(3.5rem, 11vw, 7.5rem)",
               fontWeight: "900",
               fontStyle: "bold",
-              // fontFamily: "'VT323', 'Space Mono', monospace",
               color: CYAN,
               letterSpacing: "-0.02em",
               lineHeight: 0.9,
@@ -133,7 +132,8 @@ export default function EventIntel() {
             <span style={{ color: CYAN, textShadow: `0 0 80px ${CYAN}, 0 0 60px rgba(0,245,228,0.3)` }}>
               CTF
             </span>{" "}
-            <span style={{ color: "rgba(0,245,228,0.4)", textShadow: "none", fontWeight: "300" }}>
+            {/* FIX: was rgba(0,245,228,0.4) — too faint */}
+            <span style={{ color: "rgba(0,245,228,0.75)", textShadow: "none", fontWeight: "300" }}>
               EXPERIENCE
             </span>
           </h2>
@@ -156,7 +156,8 @@ export default function EventIntel() {
             data-animate="up" data-delay="460"
             style={{
               marginTop: "2rem",
-              color: "rgba(0,245,228,0.3)",
+              // FIX: was rgba(0,245,228,0.3) — too faint
+              color: "rgba(0,245,228,0.7)",
               fontSize: "clamp(0.85rem, 1.8vw, 1.1rem)",
               maxWidth: "40rem",
               fontWeight: "400",
@@ -283,8 +284,9 @@ function Card({ item, delay }) {
         }}>
           {item.title}
         </h3>
+        {/* FIX: was rgba(0,245,228,0.25) on idle — too faint */}
         <p style={{
-          color: hovered ? "rgba(0,245,228,0.55)" : "rgba(0,245,228,0.25)",
+          color: hovered ? "rgba(0,245,228,0.75)" : "rgba(0,245,228,0.6)",
           fontSize: "0.78rem", lineHeight: 1.8,
           transition: "color 0.3s", margin: 0,
           letterSpacing: "0.04em",
@@ -318,7 +320,6 @@ function FooterFrame() {
 
   return (
     <div ref={ref}>
-      {/* Dashed border wrapper — matching the image's dashed button style */}
       <div style={{
         padding: "1px",
         border: `1px dashed ${CYAN_BORDER}`,
@@ -341,16 +342,18 @@ function FooterFrame() {
             pointerEvents: "none",
           }} />
 
+          {/* FIX: was rgba(0,245,228,0.2) — too faint */}
           <p style={{
             fontSize: "9px", letterSpacing: "0.7em",
-            color: "rgba(0,245,228,0.2)",
+            color: "rgba(0,245,228,0.55)",
             textTransform: "uppercase", marginBottom: "2.5rem",
           }}>
             // Sustaining Innovation Since Inception
           </p>
 
+          {/* FIX: was rgba(0,245,228,0.4) — too faint */}
           <p style={{
-            color: "rgba(0,245,228,0.4)",
+            color: "rgba(0,245,228,0.7)",
             fontSize: "clamp(1rem, 2.2vw, 1.5rem)",
             fontWeight: "400",
             lineHeight: 1.7,
@@ -365,30 +368,11 @@ function FooterFrame() {
               DEDSEC CTF
             </span>{" "}
             — NSSCE&apos;s premier cybersecurity competition, part of the{" "}
-            <span style={{ color: "rgba(0,245,228,0.75)", fontWeight: "600" }}>
+            <span style={{ color: "rgba(0,245,228,0.9)", fontWeight: "600" }}>
               Solasta
             </span>{" "}
             tech-fest. Shaping the next generation of security professionals.
           </p>
-
-          {/* Terminal prompt line */}
-          {/* <div style={{
-            marginTop: "3rem",
-            display: "inline-flex",
-            alignItems: "center",
-            gap: "0.5rem",
-            fontSize: "12px",
-            color: CYAN,
-            letterSpacing: "0.3em",
-            border: `1px dashed ${CYAN_BORDER}`,
-            padding: "0.6rem 2rem",
-            borderRadius: "4px",
-            background: CYAN_GLOW,
-            textShadow: `0 0 10px ${CYAN}`,
-          }}>
-            $ ~/ INITIALIZE
-            <span style={{ animation: "blink 1s step-end infinite" }}>_</span>
-          </div> */}
         </div>
       </div>
     </div>

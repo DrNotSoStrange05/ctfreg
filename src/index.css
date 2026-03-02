@@ -39,7 +39,7 @@ html {
 body {
   font-family: var(--font-heading);
   background: var(--color-midnight);
-  color: #b0b0c0;
+  color: #c8c8d8;
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
   cursor: none;

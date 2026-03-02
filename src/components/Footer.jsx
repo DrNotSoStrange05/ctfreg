@@ -121,39 +121,35 @@ export default function Footer() {
                 DEDSEC<span style={{ color: CYAN, textShadow: `0 0 10px ${CYAN}` }}> CTF</span>
               </span>
             </div>
-            <p style={{ color: 'rgba(0,245,228,0.22)', fontSize: '13px', lineHeight: 1.8, margin: 0, letterSpacing: '0.03em' }}>
+            {/* FIX: was rgba(0,245,228,0.22) — too faint */}
+            <p style={{ color: 'rgba(0,245,228,0.7)', fontSize: '13px', lineHeight: 1.8, margin: 0, letterSpacing: '0.03em' }}>
               The premier cybersecurity competition by CSE dept at NSS College of Engineering.
             </p>
           </div>
 
           {/* Contact */}
           <div data-col>
+            {/* FIX: heading was rgba(0,245,228,0.25) — too faint */}
             <h4 style={{
               fontSize: '9px', letterSpacing: '0.45em', textTransform: 'uppercase',
-              color: 'rgba(0,245,228,0.25)', margin: '0 0 1.25rem',
+              color: 'rgba(0,245,228,0.6)', margin: '0 0 1.25rem',
             }}>
               Contact
             </h4>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem', fontSize: '13px', color: 'rgba(0,245,228,0.22)', letterSpacing: '0.03em' }}>
+            {/* FIX: was rgba(0,245,228,0.22) — too faint */}
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem', fontSize: '13px', color: 'rgba(0,245,228,0.7)', letterSpacing: '0.03em' }}>
               <span>Department of CSE</span>
               <span>NSS College of Engineering</span>
               <span>Palakkad, Kerala 678008</span>
-              {/* <a
-                href="mailto:dedsec@nssce.ac.in"
-                style={{ color: 'rgba(0,245,228,0.45)', textDecoration: 'none', marginTop: '0.5rem', transition: 'color 0.25s, text-shadow 0.25s' }}
-                onMouseEnter={e => { e.target.style.color = CYAN; e.target.style.textShadow = `0 0 10px ${CYAN}` }}
-                onMouseLeave={e => { e.target.style.color = 'rgba(0,245,228,0.45)'; e.target.style.textShadow = 'none' }}
-              >
-                dedsec@nssce.ac.in
-              </a> */}
             </div>
           </div>
 
           {/* Social */}
           <div data-col>
+            {/* FIX: heading was rgba(0,245,228,0.25) — too faint */}
             <h4 style={{
               fontSize: '9px', letterSpacing: '0.45em', textTransform: 'uppercase',
-              color: 'rgba(0,245,228,0.25)', margin: '0 0 1.25rem',
+              color: 'rgba(0,245,228,0.6)', margin: '0 0 1.25rem',
             }}>
               Connect
             </h4>
@@ -208,11 +204,13 @@ export default function Footer() {
             gap: '1rem',
           }}
         >
-          <p style={{ fontSize: '10px', color: 'rgba(0,245,228,0.15)', margin: 0, letterSpacing: '0.2em' }}>
+          {/* FIX: was rgba(0,245,228,0.15) — too faint */}
+          <p style={{ fontSize: '10px', color: 'rgba(0,245,228,0.55)', margin: 0, letterSpacing: '0.2em' }}>
             © 2026 DEDSEC CTF. All rights reserved.
           </p>
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', fontSize: '10px', letterSpacing: '0.2em' }}>
-            <span style={{ color: 'rgba(0,245,228,0.15)' }}>Powered by</span>
+            {/* FIX: was rgba(0,245,228,0.15) — too faint */}
+            <span style={{ color: 'rgba(0,245,228,0.55)' }}>Powered by</span>
             <span style={{ color: 'rgba(0,245,228,0.45)', fontWeight: '700', textShadow: `0 0 8px rgba(0,245,228,0.2)` }}>
               DEDSEC
             </span>
