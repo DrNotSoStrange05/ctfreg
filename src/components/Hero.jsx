@@ -1,13 +1,10 @@
-import { useEffect, useRef, useState, useCallback } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import anime from 'animejs'
-import WhatsappLink from './WhatsappLink'
 
-export default function Hero({ isInitializing, onInitialize, hasRegistered }) {
+// REGISTRATION IS PERMANENTLY CLOSED
+export default function Hero() {
   const containerRef = useRef(null)
   const svgRef = useRef(null)
-  const btnRef = useRef(null)
-  const btnSvgRef = useRef(null)
-  const neonLoopRef = useRef(null)
 
   const [timeStr, setTimeStr] = useState('00:00:00')
   const [memUsage, setMemUsage] = useState(87)
@@ -141,7 +138,7 @@ export default function Hero({ isInitializing, onInitialize, hasRegistered }) {
 
   useEffect(() => {
     const interval = setInterval(() => {
-      if (document.hidden || isInitializing) return
+      if (document.hidden) return
 
       const targets = ['.dedsec-svg']
       anime.timeline({ easing: 'linear' })
@@ -193,97 +190,9 @@ export default function Hero({ isInitializing, onInitialize, hasRegistered }) {
       })
     }, 5000)
     return () => clearInterval(interval)
-  }, [isInitializing])
-
-  useEffect(() => {
-    if (isInitializing) {
-      anime.timeline({ easing: 'easeInOutQuart' })
-        .add({
-          targets: containerRef.current,
-          scale: 0.8,
-          opacity: 0.05,
-          filter: 'blur(15px)',
-          duration: 900,
-        })
-    } else {
-      anime({
-        targets: containerRef.current,
-        scale: 1,
-        opacity: 1,
-        filter: 'blur(0px)',
-        duration: 900,
-        easing: 'easeOutElastic(1, .6)'
-      })
-    }
-  }, [isInitializing])
-
-  const handleHoverIn = useCallback(() => {
-    if (neonLoopRef.current) {
-      anime.remove('.btn-border-path')
-      neonLoopRef.current = null
-    }
-
-    neonLoopRef.current = anime({
-      targets: '.btn-border-path',
-      strokeDashoffset: [anime.setDashoffset, 0],
-      easing: 'easeInOutSine',
-      duration: 1200,
-      loop: true,
-      direction: 'alternate',
-    })
-
-    anime({
-      targets: '.btn-glow',
-      opacity: [0, 0.6],
-      duration: 400,
-      easing: 'easeOutQuad',
-    })
-
-    anime({
-      targets: '.btn-text',
-      letterSpacing: ['6px', '10px'],
-      duration: 400,
-      easing: 'easeOutQuad',
-    })
   }, [])
 
-  const handleHoverOut = useCallback(() => {
-    if (neonLoopRef.current) {
-      anime.remove('.btn-border-path')
-      neonLoopRef.current = null
-    }
 
-    anime({
-      targets: '.btn-glow',
-      opacity: 0,
-      duration: 300,
-      easing: 'easeInQuad',
-    })
-
-    anime({
-      targets: '.btn-text',
-      letterSpacing: '6px',
-      duration: 300,
-      easing: 'easeInQuad',
-    })
-  }, [])
-
-  const handleClick = useCallback(() => {
-    anime({
-      targets: '.scanline-overlay',
-      opacity: [0.3, 0],
-      duration: 300,
-      easing: 'easeOutQuad',
-    })
-    anime({
-      targets: btnRef.current,
-      scale: [1, 0.92, 1.05, 0],
-      opacity: [1, 1, 1, 0],
-      duration: 500,
-      easing: 'easeInOutQuart',
-      complete: () => onInitialize()
-    })
-  }, [onInitialize])
 
   const dPath = "M0,5 L60,5 L80,25 L80,65 L60,85 L0,85 Z M18,22 L18,68 L50,68 L62,56 L62,34 L50,22 Z"
   const ePath = "M95,5 L175,5 L175,22 L113,22 L113,37 L160,37 L160,52 L113,52 L113,68 L175,68 L175,85 L95,85 Z"
@@ -778,44 +687,51 @@ export default function Hero({ isInitializing, onInitialize, hasRegistered }) {
             ))}
           </div>
 
-          {/* CTA Button */}
-          {!hasRegistered ? (
-            <div ref={btnRef} className="opacity-0 cta-outer">
-              <button
-                onClick={handleClick}
-                onMouseEnter={handleHoverIn}
-                onMouseLeave={handleHoverOut}
-                className="cta-btn init-btn group"
-                data-hover
-              >
-                <svg
-                  ref={btnSvgRef}
-                  className="absolute inset-[-1px] w-[calc(100%+2px)] h-[calc(100%+2px)] pointer-events-none"
-                  preserveAspectRatio="none"
-                >
-                  <rect
-                    className="btn-border-path"
-                    x="1" y="1"
-                    width="calc(100% - 2px)" height="calc(100% - 2px)"
-                    rx="0" ry="0"
-                    fill="none"
-                    stroke="#00ffff"
-                    strokeWidth="1"
-                    strokeDasharray="10 6"
-                  />
-                </svg>
-                <div className="btn-glow absolute inset-0 opacity-0" style={{ background: 'rgba(0,255,255,0.05)' }} />
-                <span className="btn-text relative flex items-center gap-3" style={{ letterSpacing: '0.35em' }}>
-                  <span className="cta-label-prefix">$_</span>
-                  <span>Initialize</span>
-                  <span className="terminal-cursor-blink !w-[6px] !h-[14px] !bg-cyber/80" />
-                </span>
-              </button>
-              <span className="cta-hex">0x4445445345432E696E6974</span>
+          {/* REGISTRATION CLOSED BANNER */}
+          <div style={{
+            border: '1px solid rgba(255,40,100,0.35)',
+            background: 'rgba(255,40,100,0.06)',
+            padding: '22px 48px',
+            clipPath: 'polygon(16px 0%, 100% 0%, calc(100% - 16px) 100%, 0% 100%)',
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            gap: '10px',
+            position: 'relative',
+          }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+              <div style={{
+                width: '8px', height: '8px',
+                borderRadius: '50%',
+                background: 'rgba(255,40,100,0.9)',
+                boxShadow: '0 0 10px rgba(255,40,100,0.7)',
+                animation: 'pulse 1.5s ease-in-out infinite',
+              }} />
+              <span style={{
+                fontFamily: "'Orbitron', monospace",
+                fontWeight: 900,
+                fontSize: 'clamp(13px, 2vw, 17px)',
+                letterSpacing: '0.35em',
+                color: 'rgba(255,40,100,0.95)',
+                textTransform: 'uppercase',
+                textShadow: '0 0 20px rgba(255,40,100,0.5)',
+              }}>Registration Closed</span>
+              <div style={{
+                width: '8px', height: '8px',
+                borderRadius: '50%',
+                background: 'rgba(255,40,100,0.9)',
+                boxShadow: '0 0 10px rgba(255,40,100,0.7)',
+                animation: 'pulse 1.5s ease-in-out infinite 0.75s',
+              }} />
             </div>
-          ) : (
-            <WhatsappLink />
-          )}
+            <span style={{
+              fontFamily: "'Share Tech Mono', monospace",
+              fontSize: '9px',
+              letterSpacing: '3px',
+              color: 'rgba(255,255,255,0.45)',
+              textTransform: 'uppercase',
+            }}>// SOLASTA CTF 2026 · REGISTRATIONS HAVE ENDED</span>
+          </div>
         </div>
 
         {/* Scroll indicator */}
